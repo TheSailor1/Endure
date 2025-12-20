@@ -1,0 +1,102 @@
+==============================================
+-------- ENDURE 3DS HOMEBREW -----------------
+==============================================
+
+--- TODO
+
+--[ ] Show icons next to enemies (Rank - Dmg - Health)
+
+
+-[x] Create the deck system
+-[ ] Fill a room with the first 4 cards
+-[x] Allow player to move to each card / enemy / loot
+-[ ] Player can interact with card (ie. Attack / open chest)
+    -[ ] Player can equip weapons using bumper buttons
+    -[ ] Player can equip weapons using touch screen
+    -[ ] Player can interact using A button
+    -[ ] Player can interact using the touch screen
+-[ ] player health system
+-[ ] Custom font
+
+
+*****************************
+--- GAME SCREENS
+*****************************
+-[ ] Main menu screen
+-[ ] Game over screen
+-[ ] Cleared / Win screen
+-[ ] Highscore list screen
+
+
+********************
+--- SPRITES
+********************
+-[ ] Player
+    -[ ] Fists
+        -[ ] Idle
+        -[ ] Attack
+    -[ ] Dagger
+        -[ ] Idle
+        -[ ] Attack
+    -[ ] Sword
+        -[ ] Idle
+        -[ ] Attack
+    -[ ] Battle Axe
+        -[ ] Idle
+        -[ ] Attack
+
+-[ ] Loot Crate
+    -[ ] Potions
+        -[ ] Open
+        -[ ] Closed
+    -[ ] Weapons
+        -[ ] Open
+        -[ ] Closed
+
+-[ ] Dagger
+-[ ] Sword
+-[ ] Battle Axe
+
+-[ ] King
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+-[ ] Queen
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+-[ ] Jack
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+-[ ] Slime
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+-[ ] Skeleton
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+-[ ] Rat
+    -[ ] Idle
+    -[ ] Attack
+    -[ ] Dead
+
+==================
+MUSIC
+==================
+ - 8bit Epic Gameboy
+ - 8bit Evil Halloween
+ - 8bit Hideout
+ - 8bit Scrap
+ - Nightmare
+ - Dark Conspiracy
+ - Zombie Run
+ - Halloween
+ - Spooky
+
