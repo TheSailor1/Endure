@@ -1,9 +1,9 @@
 -- REMOVE BEFORE SHIPPING
 -- ***********************
-develop = true
+develop = false
 if develop then
     --local
-    nest = require("nest").init({ console = "3ds", scale= 2, emulateJoystick = true })
+    nest = require("nest").init({ console = "3ds", scale= 1, emulateJoystick = true })
 end
 require( 'cards' )
 require( 'animations' )
@@ -62,7 +62,7 @@ function love.load()
     sprFPPlayer_stab = newAnimation( love.graphics.newImage( 'assets/FP_Player-stab.png' ), 165, 166, 0.3 )
     sprFPPlayer_equip = newAnimation( love.graphics.newImage( 'assets/FP_Player-equip.png' ), 240, 168, 0.3 )
     sprCandles = newAnimation( love.graphics.newImage( 'assets/Candles.png' ), 187, 106, 1 )
-    sprSlime = newAnimation( love.graphics.newImage( 'assets/Slime.png' ), 111, 114, 1 )
+    sprSlime = newAnimation( love.graphics.newImage( 'assets/SlimeEyePop.png' ), 144, 140, 1.4 )
     sprSlime_small = newAnimation( love.graphics.newImage( 'assets/SlimeSmall.png' ), 61, 73, 1 )
     sprSkeleton = newAnimation( love.graphics.newImage( 'assets/Skeleton.png' ), 80, 125, 1 )
     sprSkeleton_small = newAnimation( love.graphics.newImage( 'assets/SkeletonSmall.png' ), 48, 67, 1 )
@@ -227,6 +227,12 @@ function love.update(dt)
     if candles.currentTime >= candles.duration then
        candles.currentTime = candles.currentTime - candles.duration
     end
+
+    local slime = sprSlime
+    slime.currentTime = slime.currentTime + dt
+    if slime.currentTime >= slime.duration then
+       slime.currentTime = slime.currentTime - slime.duration
+    end
 end
 
 function love.draw(screen)
@@ -277,6 +283,7 @@ function love.draw(screen)
     end
 
     local spriteNum2 = math.floor( sprPlayer2.currentTime / sprPlayer2.duration * #sprPlayer2.quads ) + 1
+    local slimeNum = math.floor( sprSlime.currentTime / sprSlime.duration * #sprSlime.quads ) + 1
 
     -- TOP SCREEN
     if screen ~= "bottom" then
@@ -316,7 +323,7 @@ function love.draw(screen)
                     elseif hand[playerPos].suit == 'hearts' then
                         love.graphics.draw( sprPotion.spritesheet, sprPotion.quads[ 1 ], 50 + ( math.sin(t * 0.01) * 4 ), 35 + ( math.cos(t * 0.07) * 3 ), 0, 1, 1, 0, 0 )
                     elseif hand[playerPos].suit == 'spades' then
-                        love.graphics.draw( sprSlime.spritesheet, sprSlime.quads[ 1 ], 35, 55, 0, 1, 1, 0, 0 )
+                        love.graphics.draw( sprSlime.spritesheet, sprSlime.quads[ slimeNum ], 10, 25, 0, 1, 1, 0, 0 )
                     elseif hand[playerPos].suit == 'clubs' then
                         love.graphics.draw( sprSkeleton.spritesheet, sprSkeleton.quads[ 1 ], 55, 35, 0, 1, 1, 0, 0 )
                     elseif hand[playerPos].suit == 'joker' then
