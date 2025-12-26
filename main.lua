@@ -84,9 +84,12 @@ end
 function love.update(dt)
     t = t + 1
 
-    --songBg:play()
+    songBg:play()
 
     joysticks = love.joystick.getJoysticks()
+    
+    actionA = false
+
     if #joysticks > 0  then
         padLeft = joysticks[1]:isGamepadDown( 'dpleft' ) 
         padRight = joysticks[1]:isGamepadDown( 'dpright' ) 
@@ -101,6 +104,7 @@ function love.update(dt)
 
         player.state = 'idle'
 
+        
         if directionX < -0.5 then
             player.x = player.x - player.speed * dt
             player.state = 'left'
@@ -156,12 +160,35 @@ function love.update(dt)
         end
     end
 
+    --[[
+    kLeft = love.keyboard.isDown( 'left' )
+    kRight = love.keyboard.isDown( 'right' )
+    kUp = love.keyboard.isDown( 'up' )
+    kDown = love.keyboard.isDown( 'down' )
+
+    if kLeft then
+        player.x = player.x - player.speed * dt
+        player.state = 'left'
+    elseif kRight then
+        player.x = player.x + player.speed * dt
+        player.state = 'right'
+    elseif kUp then
+        player.y = player.y - player.speed * dt
+        player.state = 'up'
+    elseif kDown then
+        player.y = player.y + player.speed * dt
+        player.state = 'down'
+    else
+        player.state = 'idle'
+    end
 
     if player.state ~= 'idle'  then 
         sfxWalk:play() 
     else
         sfxWalk:stop()
     end
+    ]]--
+
 
     if player.x < 40 then player.x = 40 end
     if player.x > 400 then player.x = 400 end
@@ -299,6 +326,8 @@ function love.draw(screen)
         
         --Mice Spider overlay
         love.graphics.draw( sprMiceSpider.spritesheet, sprMiceSpider.quads[ 1 ], 0, 0 )
+
+        love.graphics.print( tostring( love.timer.getFPS() ) )
 
     end
 
@@ -511,12 +540,40 @@ function love.draw(screen)
         --ones
         love.graphics.draw( sprText_numbers.spritesheet, sprText_numbers.quads[ ones ], 275, 160 )
 
-    end
+        love.graphics.print( tostring( love.timer.getFPS() ) )
+
+    end -- /bottomScreen
 end
 
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
+    elseif key == 'z' then
+        if animationTimer == 0 then
+            animationTimer = 50
+            player.nextItem = 'fists'
+            player.equip = 'equip'
+            sfxEquip:play()
+        end
+    elseif key == 'x' then
+        if animationTimer == 0 then
+            animationTimer = 50
+            player.nextItem = 'dagger'
+            player.equip = 'equip'
+            sfxEquip:play()
+        end
+    elseif key == 'space' then
+        if playerPos > 0  and animationTimer == 0 then
+            if hand[ playerPos ].suit == 'spades' or hand[ playerPos ].suit == 'clubs' then
+                actionA = true
+                animationTimer = 50
+                player.nextItem = player.equip
+                player.equip = 'stab'
+                sfxAttack:stop()
+                sfxAttack:play()
+                sfxHit:play()
+            end
+        end
     end
 end
 
@@ -536,8 +593,9 @@ function love.gamepadpressed(joystick, button)
             player.nextItem = 'dagger'
             player.equip = 'equip'
             sfxEquip:play()
-        elseif button == 'a' and animationTimer == 0 then
+        elseif button == 'a' and animationTimer == 0 and playerPos ~= 0 then
             if hand[ playerPos ].suit == 'spades' or hand[ playerPos ].suit == 'clubs' then
+                actionA = true
                 animationTimer = 50
                 player.nextItem = player.equip
                 player.equip = 'stab'
